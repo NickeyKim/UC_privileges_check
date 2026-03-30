@@ -69,6 +69,8 @@ Databricks Workflow로 구성된 2단계 순차 실행 파이프라인입니다.
 
 대시보드 정의 파일은 `src/uc_privileges_changes_dashboard.lvdash.json`에 저장되어 있으며, `resources/uc_privileges_changes_dashboard.yml`에서 리소스로 설정됩니다.
 
+![UC Privileges Changes Dashboard](docs/images/dashboard_screenshot.png)
+
 ## Project Structure
 
 ```

@@ -71,6 +71,8 @@ A **Lakeview dashboard** (`UC Privileges Changes Dashboard`) is included and dep
 
 The dashboard definition is stored at `src/uc_privileges_changes_dashboard.lvdash.json` and configured in `resources/uc_privileges_changes_dashboard.yml`.
 
+![UC Privileges Changes Dashboard](docs/images/dashboard_screenshot.png)
+
 ## Project Structure
 
 ```
