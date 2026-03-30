@@ -1,0 +1,32 @@
+resources:
+  jobs:
+    dmp_dev_serverless_change_uc_privileges:
+      name: dmp-dev-serverless-change-uc-privileges
+      tasks:
+        - task_key: 01_CREATE_uc_grant_snapshot_table
+          email_notifications: {}
+          notebook_task:
+            notebook_path: ../src/01. CREATE UC_GRANT_SNAPSHOT TABLE.py
+            source: WORKSPACE
+          run_if: ALL_SUCCESS
+          webhook_notifications: {}
+        - task_key: 02_SELECT_CREATE_TABLES_PRIVILEGES
+          depends_on:
+            - task_key: 01_CREATE_uc_grant_snapshot_table
+          email_notifications: {}
+          notebook_task:
+            notebook_path: ../src/02. SELECT AND CREATE TABLES of ALL PRIVILEGES from the catalog.py
+            source: WORKSPACE
+          run_if: ALL_SUCCESS
+          webhook_notifications: {}
+      description: The job to check the changes of UC Privileges.
+      email_notifications: {}
+      max_concurrent_runs: 1
+      performance_target: PERFORMANCE_OPTIMIZED
+      queue:
+        enabled: true
+      schedule:
+        pause_status: PAUSED
+        quartz_cron_expression: 16 0 9 * * ?
+        timezone_id: Asia/Seoul
+      webhook_notifications: {}
