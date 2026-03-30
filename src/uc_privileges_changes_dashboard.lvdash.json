@@ -1,0 +1,592 @@
+{
+  "datasets": [
+    {
+      "name": "a59a7686",
+      "displayName": "today_added_grant",
+      "queryLines": [
+        "-- Today ADDED\n",
+        "SELECT count(*) AS cnt\n",
+        "FROM users.nakhoe_kim.uc_grants_drift\n",
+        "WHERE drift_date = current_date()\n",
+        "  AND change_type = 'ADDED';\n"
+      ]
+    },
+    {
+      "name": "a83c4ba2",
+      "displayName": "today_removed_grant",
+      "queryLines": [
+        "-- Today REMOVED\n",
+        "SELECT count(*) AS cnt\n",
+        "FROM users.nakhoe_kim.uc_grants_drift\n",
+        "WHERE drift_date = current_date()\n",
+        "  AND change_type = 'REMOVED';\n"
+      ]
+    },
+    {
+      "name": "e6caf288",
+      "displayName": "today_changed_summary_grant",
+      "queryLines": [
+        "SELECT\n",
+        "  change_type,\n",
+        "  env,\n",
+        "  object_type,\n",
+        "  object_full_name,\n",
+        "  principal,\n",
+        "  privilege\n",
+        "FROM users.nakhoe_kim.uc_grants_drift\n",
+        "WHERE drift_date = current_date()\n",
+        "ORDER BY env, change_type, privilege DESC;"
+      ]
+    },
+    {
+      "name": "4c8a72d6",
+      "displayName": "today_added_grant_mig",
+      "queryLines": [
+        "-- Today ADDED\n",
+        "SELECT count(*) AS cnt\n",
+        "FROM users.nakhoe_kim.uc_grants_drift\n",
+        "WHERE drift_date = current_date()\n",
+        "AND change_type = 'ADDED'; "
+      ]
+    },
+    {
+      "name": "09565dd3",
+      "displayName": "today_removed_grant_mig",
+      "queryLines": [
+        "-- Today REMOVED\n",
+        "SELECT count(*) AS cnt\n",
+        "FROM users.nakhoe_kim.uc_grants_drift\n",
+        "WHERE drift_date = current_date()\n",
+        "  AND change_type = 'REMOVED';\n"
+      ]
+    },
+    {
+      "name": "a4172ffc",
+      "displayName": "today_changed_summary_grant_mig",
+      "queryLines": [
+        "SELECT\n",
+        "  change_type,\n",
+        "  env,\n",
+        "  object_type,\n",
+        "  object_full_name,\n",
+        "  principal,\n",
+        "  privilege\n",
+        "FROM users.nakhoe_kim.uc_grants_drift\n",
+        "WHERE drift_date = current_date()\n",
+        "ORDER BY env, change_type, privilege DESC; "
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "09fa3a10",
+      "displayName": "UC Grant/Privileges",
+      "layout": [
+        {
+          "widget": {
+            "name": "f8b84b6f",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## UC Grant/Privileges\n",
+                "\n",
+                "Please note that everything here is NOT attack from someone. (\uc5ec\uae30\uc5d0 \uc788\ub294 \ubaa8\ub4e0 \ub0b4\uc6a9\uc774 \ub204\uad70\uac00\uc758 \uacf5\uaca9\uc774 \uc544\ub2d8\uc744 \uc720\uc758\ud574\uc8fc\uc2ed\uc2dc\uc624.)\n",
+                "\n",
+                "1. Today added grant/privileges - The added privileges of UC object between yesterday and today. (\uc624\ub298 \ucd94\uac00\ub41c \uad8c\ud55c - UC Object(Catalog, Schema, Table, Volume)\uc758 \uc5b4\uc81c \ub300\ube44 \uc624\ub298 \ucd94\uac00\ub41c \uad8c\ud55c \uc785\ub2c8\ub2e4.)\n",
+                "2. Today removed grant/privileges -  The removed privileges of UC object between yesterday and today. (\uc624\ub298 \uc0ad\uc81c\ub41c \uad8c\ud55c - UC Object(Catalog, Schema, Table, Volume)\uc758 \uc5b4\uc81c \ub300\ube44 \uc624\ub298 \uc0ad\uc81c\ub41c \uad8c\ud55c \uc785\ub2c8\ub2e4.)\n",
+                "3. Change detail of privileges - This is detail of change of privileges. (\uad8c\ud55c \ubcc0\uacbd \uc138\ubd80\uc0ac\ud56d - \ubcc0\uacbd\ub41c \uad8c\ud55c\ub4e4\uc758 \uc138\ubd80\uc0ac\ud56d\uc785\ub2c8\ub2e4.)"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "1b95e9fe",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## <span style=\"color:#077A9D\">workspace-dev</span>"
+              ]
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#000000"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "7bd01667",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a59a7686",
+                  "fields": [
+                    {
+                      "name": "cnt",
+                      "expression": "`cnt`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Today added grant/privileges\n(\uc624\ub298 \ucd94\uac00\ub41c \uad8c\ud55c )"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "cnt",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "42024a9e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a83c4ba2",
+                  "fields": [
+                    {
+                      "name": "cnt",
+                      "expression": "`cnt`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Today removed grant/privileges\n(\uc624\ub298 \uc0ad\uc81c\ub41c \uad8c\ud55c )"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "cnt",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "e73dd6cd",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e6caf288",
+                  "fields": [
+                    {
+                      "name": "change_type",
+                      "expression": "`change_type`"
+                    },
+                    {
+                      "name": "env",
+                      "expression": "`env`"
+                    },
+                    {
+                      "name": "object_type",
+                      "expression": "`object_type`"
+                    },
+                    {
+                      "name": "object_full_name",
+                      "expression": "`object_full_name`"
+                    },
+                    {
+                      "name": "principal",
+                      "expression": "`principal`"
+                    },
+                    {
+                      "name": "privilege",
+                      "expression": "`privilege`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "rowsPerPage": 25,
+              "displayRowNumbers": false,
+              "frame": {
+                "showTitle": true,
+                "title": "Change detail of privileges (\uad8c\ud55c \ubcc0\uacbd \uc138\ubd80\uc0ac\ud56d )",
+                "showDescription": true,
+                "description": "(Check if the daily job was succeeded for below)"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "change_type",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "env",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "object_type",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "object_full_name",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "principal",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "privilege",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 4,
+            "width": 10,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "5582dc74",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## <span style=\"color:#00A972\">workspace-stg</span>"
+              ]
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#000000"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "aea73a09",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4c8a72d6",
+                  "fields": [
+                    {
+                      "name": "cnt",
+                      "expression": "`cnt`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Today added grant/privileges \n(\uc624\ub298 \ucd94\uac00\ub41c \uad8c\ud55c)"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "cnt",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "441b5b2b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "09565dd3",
+                  "fields": [
+                    {
+                      "name": "cnt",
+                      "expression": "`cnt`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Today removed grant/privileges\n(\uc624\ub298 \uc0ad\uc81c\ub41c \uad8c\ud55c )"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "cnt",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "ee45f930",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a4172ffc",
+                  "fields": [
+                    {
+                      "name": "change_type",
+                      "expression": "`change_type`"
+                    },
+                    {
+                      "name": "env",
+                      "expression": "`env`"
+                    },
+                    {
+                      "name": "object_type",
+                      "expression": "`object_type`"
+                    },
+                    {
+                      "name": "object_full_name",
+                      "expression": "`object_full_name`"
+                    },
+                    {
+                      "name": "principal",
+                      "expression": "`principal`"
+                    },
+                    {
+                      "name": "privilege",
+                      "expression": "`privilege`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "rowsPerPage": 25,
+              "displayRowNumbers": false,
+              "frame": {
+                "showTitle": true,
+                "title": "Change detail of privileges (\uad8c\ud55c \ubcc0\uacbd \uc138\ubd80\uc0ac\ud56d)",
+                "showDescription": true,
+                "description": "(Check if the daily job was succeeded for below)"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "change_type",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "env",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "object_type",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "object_full_name",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "principal",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "privilege",
+                    "useForSearch": false,
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 11,
+            "width": 10,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}

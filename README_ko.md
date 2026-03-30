@@ -59,16 +59,28 @@ Databricks Workflow로 구성된 2단계 순차 실행 파이프라인입니다.
 | `source_snapshot_date` | DATE | 비교 기준 스냅샷 날짜 |
 | `prev_snapshot_date` | DATE | 비교 대상(전일) 스냅샷 날짜 |
 
+## 대시보드
+
+**Lakeview 대시보드** (`UC Privileges Changes Dashboard`)가 번들에 포함되어 함께 배포됩니다. 다음을 시각화합니다:
+
+- 오늘의 ADDED / REMOVED 권한 변동 건수
+- 상세 Drift 요약 (변동 유형, 환경, 객체, 주체, 권한)
+- 과거 권한 변경 추이
+
+대시보드 정의 파일은 `src/uc_privileges_changes_dashboard.lvdash.json`에 저장되어 있으며, `resources/uc_privileges_changes_dashboard.yml`에서 리소스로 설정됩니다.
+
 ## Project Structure
 
 ```
 uc_privileges_check/
 ├── databricks.yml                          # DAB 번들 설정 (dev/prod 타겟)
 ├── resources/
-│   └── dmp_dev_serverless_change_uc_privileges.job.yml  # Job 정의 (스케줄, 태스크)
+│   ├── dmp_dev_serverless_change_uc_privileges.job.yml      # Job 정의 (스케줄, 태스크)
+│   └── uc_privileges_changes_dashboard.yml                  # Lakeview 대시보드 리소스
 ├── src/
-│   ├── 01. CREATE UC_GRANT_SNAPSHOT TABLE.py            # 스냅샷 수집 노트북
-│   └── 02. SELECT AND CREATE TABLES of ALL PRIVILEGES from the catalog.py  # Drift 감지 노트북
+│   ├── 01. CREATE UC_GRANT_SNAPSHOT TABLE.py                # 스냅샷 수집 노트북
+│   ├── 02. SELECT AND CREATE TABLES of ALL PRIVILEGES from the catalog.py  # Drift 감지 노트북
+│   └── uc_privileges_changes_dashboard.lvdash.json          # Lakeview 대시보드 정의
 └── scratch/
     └── exploration.ipynb                   # 탐색용 노트북
 ```

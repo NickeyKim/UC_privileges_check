@@ -61,16 +61,28 @@ A two-step sequential pipeline orchestrated as a Databricks Workflow.
 | `source_snapshot_date` | DATE | Reference snapshot date |
 | `prev_snapshot_date` | DATE | Previous day's snapshot date |
 
+## Dashboard
+
+A **Lakeview dashboard** (`UC Privileges Changes Dashboard`) is included and deployed as part of the bundle. It visualizes:
+
+- Today's ADDED / REMOVED privilege counts
+- Detailed drift summary (change type, environment, object, principal, privilege)
+- Historical privilege change trends
+
+The dashboard definition is stored at `src/uc_privileges_changes_dashboard.lvdash.json` and configured in `resources/uc_privileges_changes_dashboard.yml`.
+
 ## Project Structure
 
 ```
 uc_privileges_check/
 ├── databricks.yml                          # DAB bundle config (dev/prod targets)
 ├── resources/
-│   └── dmp_dev_serverless_change_uc_privileges.job.yml  # Job definition (schedule, tasks)
+│   ├── dmp_dev_serverless_change_uc_privileges.job.yml      # Job definition (schedule, tasks)
+│   └── uc_privileges_changes_dashboard.yml                  # Lakeview dashboard resource
 ├── src/
-│   ├── 01. CREATE UC_GRANT_SNAPSHOT TABLE.py            # Snapshot collection notebook
-│   └── 02. SELECT AND CREATE TABLES of ALL PRIVILEGES from the catalog.py  # Drift detection notebook
+│   ├── 01. CREATE UC_GRANT_SNAPSHOT TABLE.py                # Snapshot collection notebook
+│   ├── 02. SELECT AND CREATE TABLES of ALL PRIVILEGES from the catalog.py  # Drift detection notebook
+│   └── uc_privileges_changes_dashboard.lvdash.json          # Lakeview dashboard definition
 └── scratch/
     └── exploration.ipynb                   # Exploration notebook
 ```

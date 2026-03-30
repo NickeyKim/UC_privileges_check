@@ -1,0 +1,6 @@
+resources:
+  dashboards:
+    uc_privileges_changes_dashboard:
+      display_name: "UC Privileges Changes Dashboard"
+      warehouse_id: 862f1d757f0424f7
+      file_path: ../src/uc_privileges_changes_dashboard.lvdash.json
